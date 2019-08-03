@@ -1,24 +1,46 @@
 import React,{Component} from 'react';
 import Loader from './Loader';
 
-async var apiCall=()=>{
-  const url=`https://calendarific.com/api/v2/holidays?country=IN&year=${new Date().getFullYear}&api_key=1e28552dc96cf87e453acb1c71762590d0e6df89`;
-  var x=await fetch(url);
-  var y= await x.json();
-  return(
-    y
-  );
-}
 
-class App extends Comonent{
+
+class App extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      Loading:true,
+      data:'',
+      err:false
+    }
+  }
+  async componentDidMount(){
+    var x=await fetch("https://calendarific.com/api/v2/holidays?country=IN&year=201&api_key=1e28552dc96cf87e453acb1c71762590d0e6df89")
+    var j=await x.json();
+    if(j["response"]["holidays"]==null){
+      this.setState({
+        Loading:false,
+        data:'',
+        err:true
+      })
+      console.log("data not retreve Succesfully");
+      console.log(j.response);
+    }
+    else{
+      this.setState({
+        Loading:false,
+        data:j.response,
+        err:false
+      })
+      console.log("data retreve Succesfully");
+      console.log(j.response);
+    }
+  }
 render(){
-  var z=apiCall();
-  if(z.response == null){
-    return <Loader loadContent="Error Loading Data"/>
-  }
-  else{
-    return <Loader loadContent="Loading"/>
-  }
+    if(this.state.Loading === true && this.state.err === false)
+      return <Loader loadContent="Loading"/>
+    else if(this.state.err === true && this.state.Loading === false )
+      return <Loader loadContent="Error In fetching data"/>
+    else
+      return <div>hii</div>
 }
 }
 
