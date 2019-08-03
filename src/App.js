@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import Loader from './Loader';
-
+import Calender from './Calender';
 
 
 class App extends Component{
@@ -13,7 +13,7 @@ class App extends Component{
     }
   }
   async componentDidMount(){
-    var x=await fetch("https://calendarific.com/api/v2/holidays?country=IN&year=201&api_key=1e28552dc96cf87e453acb1c71762590d0e6df89")
+    var x=await fetch("https://calendarific.com/api/v2/holidays?country=IN&year=2019&api_key=1e28552dc96cf87e453acb1c71762590d0e6df89")
     var j=await x.json();
     if(j["response"]["holidays"]==null){
       this.setState({
@@ -40,7 +40,7 @@ render(){
     else if(this.state.err === true && this.state.Loading === false )
       return <Loader loadContent="Error In fetching data"/>
     else
-      return <div>hii</div>
+      return <div><Calender/></div>
 }
 }
 
