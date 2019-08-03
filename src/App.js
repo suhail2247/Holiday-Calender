@@ -40,7 +40,7 @@ render(){
     else if(this.state.err === true && this.state.Loading === false )
       return <Loader loadContent="Error In fetching data"/>
     else
-      return <div><Calender/></div>
+      return <div><Calender holiday={this.state.data}/></div>
 }
 }
 
