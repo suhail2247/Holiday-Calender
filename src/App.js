@@ -8,7 +8,7 @@ class App extends Component{
     super(props);
     this.state={
       Loading:true,
-      data:'',
+      data:[],
       err:false
     }
   }
@@ -18,7 +18,7 @@ class App extends Component{
     if(j["response"]["holidays"]==null){
       this.setState({
         Loading:false,
-        data:'',
+        data:[],
         err:true
       })
       console.log("data not retreve Succesfully");
@@ -31,10 +31,11 @@ class App extends Component{
         err:false
       })
       console.log("data retreve Succesfully");
-      console.log(j.response);
+      
     }
   }
 render(){
+  console.log(this.state.data);
     if(this.state.Loading === true && this.state.err === false)
       return <Loader loadContent="Loading"/>
     else if(this.state.err === true && this.state.Loading === false )
