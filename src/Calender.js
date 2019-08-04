@@ -15,7 +15,36 @@ export default class Calender extends Component {
             new: true,
             pass: false
         };
-
+    }
+    month(e) {
+        switch (e) {
+            case 1:
+                return "January"
+            case 2:
+                return "February"
+            case 3:
+                return "March"
+            case 4:
+                return "April"
+            case 5:
+                return "May"
+            case 6:
+                return "June"
+            case 7:
+                return "July"
+            case 8:
+                return "August"
+            case 9:
+                return "September"
+            case 10:
+                return "October"
+            case 11:
+                return "November"
+            case 12:
+                return "December"
+            default:
+                break;
+        }
     }
 
     divideDates = () => {
@@ -66,11 +95,25 @@ export default class Calender extends Component {
         }
     }
     Information = () => {
+        this.eve = []
         if (this.today !== null) {
+            console.log(this.today)
+            console.log(this.today.length)
+            for (var i = 0; i < this.today.length; i++) {
+                this.eve.push(
+                    <div className="holiday-text">
+                        <strong className="date-content">{this.today[i].date.datetime.day} {this.month(this.today[i].date.datetime.month)} {this.today[i].date.datetime.year}</strong>
+                        <div>{this.today[i].name}</div>
+                        <div>{this.today[i].type[0]}</div>
+                    </div>
+                )
+            }
             return (
                 <div>
-                    <div className="holiday-text" ><strong>Today Is Holiday</strong></div>
-
+                    <div className="holiday-text" >
+                        <strong>Hey, you got holiday today</strong>
+                        {this.eve}
+                    </div>
                 </div>
             )
         }
@@ -83,15 +126,16 @@ export default class Calender extends Component {
     load = () => {
         $(document).ready(function () {
             if (this.today !== null)
-                $('#load').show();
+                $('#load').hide();
         });
+        //<div id="load" ><Modals /></div>
     }
     render() {
         this.divideDates();
         console.log(this.today);
         return (
-            <div className="main-Conatier" onLoad={this.load()}>
-                <Modals id="load"></Modals>
+            <div className="main-Conatier">
+
                 {this.Information()}
                 <button className="upcoming-holiday-btn" onClick={this.upcomingHoliday}>Upcoming Holidays</button>
                 <button className="passed-holiday-btn" onClick={this.passedHoliday}>Passed Holidays</button>
