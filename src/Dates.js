@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Dates.css';
 export default class Dates extends Component {
     month(e) {
-        console.log("month:" + e);
         switch (e) {
             case 1:
                 return "January"
@@ -33,7 +32,6 @@ export default class Dates extends Component {
         }
     }
     render() {
-        console.log(this.props.dates.length);
         this.date = [];
         this.j = 0;
         while (this.j < this.props.dates.length) {
